@@ -38,7 +38,7 @@ end
       mkdir_p "src"
       mkdir_p "downloads"
       mkdir_p "jailed-root"
-      sh('gpg --recv-keys 6A45C816 36580288 7D9DC8D2 18ADD4FF A4135B38 A74B06BF EA5BBD71 ED9D77D5 E6DF025C F73C700D')
+      sh('gpg --recv-keys 6A45C816 36580288 7D9DC8D2 18ADD4FF A4135B38 A74B06BF EA5BBD71 ED9D77D5 E6DF025C 6F5E1540 F73C700D')
     end
 
     task :download do
