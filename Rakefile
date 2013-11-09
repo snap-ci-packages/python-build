@@ -25,6 +25,8 @@ end
     description_string = %Q{Python is an interpreted, interactive, object-oriented programming language often compared to Tcl, Perl, Scheme or Java. Python includes modules, classes, exceptions, very high level dynamic data types and dynamic typing. Python supports interfaces to many system calls and libraries, as well as to various windowing systems (X11, Motif, Tk, Mac and MFC).}
 
     jailed_root = File.expand_path('../jailed-root', __FILE__)
+    prefix = File.join('/opt/local/python', version)
+
     CLEAN.include("downloads")
     CLEAN.include("jailed-root")
     CLEAN.include("log")
@@ -55,7 +57,7 @@ end
           if File.exist?('/usr/lib/x86_64-linux-gnu')
             configure_flags << "LDFLAGS='-L/usr/lib/x86_64-linux-gnu -L/lib/x86_64-linux-gnu' CFLAGS='-I/usr/include/x86_64-linux-gnu' CPPFLAGS='-I/usr/include/x86_64-linux-gnu' "
           end
-          sh "#{configure_flags}./configure --prefix=/opt/local/python/#{version} --with-fpectl --disable-shared --enable-unicode=ucs4 --with-system-ffi > #{File.dirname(__FILE__)}/log/configure.#{version}.log 2>&1"
+          sh "#{configure_flags}./configure --prefix=#{prefix} --with-fpectl --disable-shared --enable-unicode=ucs4 --with-system-ffi > #{File.dirname(__FILE__)}/log/configure.#{version}.log 2>&1"
         end
       end
     end
@@ -80,7 +82,7 @@ end
     task :fpm do
       cd "pkg" do
         sh(%Q{
-             bundle exec fpm -s dir -t #{distro} --name python-#{version} -a x86_64 --version "#{version}" -C #{jailed_root} --verbose #{fpm_opts} --maintainer snap-ci@thoughtworks.com --vendor snap-ci@thoughtworks.com --url http://snap-ci.com --description "#{description_string}" --iteration #{release} --license 'Python' .
+             bundle exec fpm -s dir -t #{distro} --name python-#{version} -a x86_64 --version "#{version}" -C #{jailed_root} --directories #{prefix} --verbose #{fpm_opts} --maintainer snap-ci@thoughtworks.com --vendor snap-ci@thoughtworks.com --url http://snap-ci.com --description "#{description_string}" --iteration #{release} --license 'Python' .
         })
       end
     end
