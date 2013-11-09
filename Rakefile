@@ -38,14 +38,14 @@ end
       mkdir_p "src"
       mkdir_p "downloads"
       mkdir_p "jailed-root"
-      sh('gpg --recv-keys 6A45C816 36580288 7D9DC8D2 18ADD4FF A4135B38 A74B06BF EA5BBD71 ED9D77D5 E6DF025C 6F5E1540 F73C700D')
+      sh('gpg2 --recv-keys 6A45C816 36580288 7D9DC8D2 18ADD4FF A4135B38 A74B06BF EA5BBD71 ED9D77D5 E6DF025C 6F5E1540 F73C700D')
     end
 
     task :download do
       cd 'downloads' do
         sh("curl --fail http://www.python.org/ftp/python/#{version}/Python-#{version}.tgz     > Python-#{version}.tgz     2>/dev/null")
         sh("curl --fail http://www.python.org/ftp/python/#{version}/Python-#{version}.tgz.asc > Python-#{version}.tgz.asc 2>/dev/null")
-        sh("gpg --verify Python-#{version}.tgz.asc")
+        sh("gpg2 --verify Python-#{version}.tgz.asc")
       end
     end
 
