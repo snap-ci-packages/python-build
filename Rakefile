@@ -18,7 +18,7 @@ unless distro
   $stderr.puts "Don't know what distro I'm running on -- not sure if I can build!"
 end
 
-%w(2.6.8 2.7.5 3.1.5 3.2.5 3.3.2).each do |version|
+%w(2.6.9 2.7.6 3.1.5 3.2.5 3.3.5 3.4.0).each do |version|
   namespace version do
     release = ENV['GO_PIPELINE_COUNTER'] || ENV['RELEASE'] || 1
 
