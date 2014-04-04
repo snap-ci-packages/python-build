@@ -82,6 +82,39 @@ end
       cd "src/Python-#{version}" do
         sh("make install DESTDIR=#{jailed_root} > #{File.dirname(__FILE__)}/log/make-install.#{version}.log 2>&1")
       end
+
+      # we have to do this fudging around because some versions of python prefix their binaries with the binprefix :(
+      cd("#{jailed_root}/#{prefix}/bin") do
+
+        binprefixes = [
+          version.split('.').first(2).join('.'),
+          version.split('.').first(1)
+        ].flatten
+
+        binfiles = %w(idle@@ python@@ pydoc@@ python@@-config).each do |file_template|
+          symlink = file_template.gsub('@@', '')
+
+          if File.exist?(symlink)
+            $stderr.puts "Skip creation of #{symlink} because there's already something there"
+            next
+          end
+
+          potential_binaryprefix = binprefixes.find do |prefix|
+            potential_binary_name = file_template.gsub('@@', prefix)
+            File.exist?(potential_binary_name)
+          end
+
+          unless potential_binaryprefix
+            $stderr.puts("Could not find binaries matching #{file_template} skipping ahead")
+            next
+          end
+
+          filename = file_template.gsub('@@', potential_binaryprefix)
+
+          ln_sf(filename, symlink)
+        end
+      end
+
     end
 
     task :fpm do
