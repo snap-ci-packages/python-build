@@ -21,7 +21,7 @@ end
 # we do not build 3.1 since it's not going anywhere
 %w(2.6.9 2.7.6 3.2.5 3.3.5 3.4.0).each do |version|
   namespace version do
-    release = ENV['GO_PIPELINE_COUNTER'] || ENV['RELEASE'] || 1
+    release = Time.now.utc.strftime('%Y%m%d%H%M%S')
 
     description_string = %Q{Python is an interpreted, interactive, object-oriented programming language often compared to Tcl, Perl, Scheme or Java. Python includes modules, classes, exceptions, very high level dynamic data types and dynamic typing. Python supports interfaces to many system calls and libraries, as well as to various windowing systems (X11, Motif, Tk, Mac and MFC).}
 
