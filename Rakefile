@@ -84,6 +84,11 @@ end
         sh("make install DESTDIR=#{jailed_root} > #{File.dirname(__FILE__)}/log/make-install.#{version}.log 2>&1")
       end
 
+      cd(Dir["#{jailed_root}/#{prefix}/lib/python*"].first) do
+        # cleanup the test folder (no need for this in the distribution)
+        rm_rf 'test'
+      end
+
       # we have to do this fudging around because some versions of python prefix their binaries with the binprefix :(
       cd("#{jailed_root}/#{prefix}/bin") do
 
