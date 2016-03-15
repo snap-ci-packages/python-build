@@ -19,7 +19,7 @@ unless distro
 end
 
 # we do not build 3.1 since it's not going anywhere
-%w(2.6.9 2.7.6 2.7.9 3.2.5 3.3.5 3.4.0 3.5.0).each do |version|
+%w(2.6.9 2.7.6 2.7.9 2.7.10 2.7.11 3.2.5 3.2.6 3.3.5 3.3.6 3.4.0 3.4.4 3.5.0 3.5.1).each do |version|
   namespace version do
     release = Time.now.utc.strftime('%Y%m%d%H%M%S')
 
