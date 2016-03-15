@@ -1,3 +1,5 @@
+[![Build Status](https://snap-ci.com/snap-ci/python-build/branch/master/build_image)](https://snap-ci.com/snap-ci/python-build/branch/master)
+
 This repo contains scripts needed to build deb and rpms for various versions of python
 
 # CentOS/RHEL
